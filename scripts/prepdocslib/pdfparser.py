@@ -10,6 +10,25 @@ from pypdf import PdfReader
 from .page import Page
 from .parser import Parser
 
+import re
+
+def cleanup_plaintext(text):
+    '''
+    gets the full text of a document and returns cleaned-up text.
+    '''
+    # Remove images
+    text = text.replace("[image]", "")
+    text = text.replace("[]", "")
+
+    # Replace single \n with space (if the next char is not \n or -)
+    text = re.sub('(?<!\n)\n(?!(\n|-))', ' ', text)
+
+    # Replace any sequence of two or more newlines with \n\n
+    text = re.sub('\n{2,}', '\n\n', text)
+
+    # Replace multiple spaces with single space
+    text = re.sub('(?<!\n) +', ' ', text)
+    return text
 
 class LocalPdfParser(Parser):
     """
@@ -18,11 +37,18 @@ class LocalPdfParser(Parser):
     """
 
     async def parse(self, content: IO) -> AsyncGenerator[Page, None]:
+
+        print(f"Extracting text from '{content.name}' using LocalPdfParser")
+
         reader = PdfReader(content)
         pages = reader.pages
         offset = 0
         for page_num, p in enumerate(pages):
             page_text = p.extract_text()
+
+            # LHi 16.2.2024:
+            page_text = cleanup_plaintext(page_text)
+
             yield Page(page_num=page_num, offset=offset, text=page_text)
             offset += len(page_text)
 

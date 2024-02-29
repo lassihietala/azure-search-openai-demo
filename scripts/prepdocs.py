@@ -20,6 +20,8 @@ from prepdocslib.integratedvectorizerstrategy import (
     IntegratedVectorizerStrategy,
 )
 from prepdocslib.jsonparser import JsonParser
+from prepdocslib.markdownparser import MarkdownParser
+
 from prepdocslib.listfilestrategy import (
     ADLSGen2ListFileStrategy,
     ListFileStrategy,
@@ -72,6 +74,7 @@ async def setup_file_strategy(credential: AsyncTokenCredential, args: Any) -> St
         ".pdf": FileProcessor(pdf_parser, sentence_text_splitter),
         ".html": FileProcessor(doc_int_parser, sentence_text_splitter),
         ".json": FileProcessor(JsonParser(), SimpleTextSplitter()),
+        ".md": FileProcessor(MarkdownParser(), SimpleTextSplitter()),        
         ".docx": FileProcessor(doc_int_parser, sentence_text_splitter),
         ".pptx": FileProcessor(doc_int_parser, sentence_text_splitter),
         ".xlsx": FileProcessor(doc_int_parser, sentence_text_splitter),

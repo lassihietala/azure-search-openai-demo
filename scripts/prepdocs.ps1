@@ -67,6 +67,9 @@ if ($env:USE_FEATURE_INT_VECTORIZATION) {
 
 $cwd = (Get-Location)
 $dataArg = "`"$cwd/data/*`""
+#$dataArg = "`"$cwd/data/Malliratkaisuja.json`""
+#$dataArg = "`"$cwd/data/Foresta kayttoohje.pdf`""
+#$dataArg = "`"$cwd/data/Työterveyshuolto.pdf`""
 
 $argumentList = "./scripts/prepdocs.py $dataArg --verbose " + `
 "--subscriptionid $env:AZURE_SUBSCRIPTION_ID " + `

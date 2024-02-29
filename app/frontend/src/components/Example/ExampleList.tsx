@@ -3,9 +3,11 @@ import { Example } from "./Example";
 import styles from "./Example.module.css";
 
 const DEFAULT_EXAMPLES: string[] = [
-    "What is included in my Northwind Health Plus plan that is not in standard?",
-    "What happens in a performance review?",
-    "What does a Product Manager do?"
+    "Miksi joillekin asiakkaille ei ole muodostunut asiakasnumeroa?",
+    "Miksi Classicin toteumakirjaus ei nouse Enterprisen työmaan toteumiin?",
+    "Miksi OmaMetsä-käyttäjän valtuutuspyyntöä ei saa lähetettyä?",
+    "Kerro Forestan SIMO-laskennasta",
+    "Miten lähetän tarjouspyynnön Kuutioon?"
 ];
 
 const GPT4V_EXAMPLES: string[] = [

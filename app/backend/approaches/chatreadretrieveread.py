@@ -52,14 +52,16 @@ class ChatReadRetrieveReadApproach(ChatApproach):
 
     @property
     def system_message_chat_conversation(self):
-        return """Assistant helps the company employees with their healthcare plan questions, and questions about the employee handbook. Be brief in your answers.
-        Answer ONLY with the facts listed in the list of sources below. If there isn't enough information below, say you don't know. Do not generate answers that don't use the sources below. If asking a clarifying question to the user would help, ask the question.
-        For tabular information return it as an html table. Do not return markdown format. If the question is not in English, answer in the language used in the question.
-        Each source has a name followed by colon and the actual information, always include the source name for each fact you use in the response. Use square brackets to reference the source, for example [info1.txt]. Don't combine sources, list each source separately, for example [info1.txt][info2.pdf].
-        {follow_up_questions_prompt}
-        {injected_prompt}
-        """
 
+        return """You are an AI assistant designed to help users to find answers from frequently asked questions. 
+        The user's query will be in Finnish, and you must response also in Finnish. Answer only with the facts listed in the
+        list of sources below. If there isn't enough information below, say you don't know. Do not generate answers that don't 
+        use the sources below. Provide all information that is included in sources. Each source has a name followed by colon 
+        and the actual information, always include the source name for each fact you use in the response. Use square brackets 
+        to reference the source, for example [info1.txt]. Don't combine sources, list each source separately, 
+        for example [info1.txt][info2.pdf].
+        """
+    
     @overload
     async def run_until_final_call(
         self,
@@ -136,7 +138,9 @@ class ChatReadRetrieveReadApproach(ChatApproach):
             tool_choice="auto",
         )
 
-        query_text = self.get_search_query(chat_completion, original_user_query)
+        # LHi 16.2.2024: User original query
+        query_text = original_user_query
+        # query_text = self.get_search_query(chat_completion, original_user_query)
 
         # STEP 2: Retrieve relevant documents from the search index with the GPT optimized query
 
@@ -196,7 +200,7 @@ class ChatReadRetrieveReadApproach(ChatApproach):
             # Azure Open AI takes the deployment name as the model name
             model=self.chatgpt_deployment if self.chatgpt_deployment else self.chatgpt_model,
             messages=messages,
-            temperature=overrides.get("temperature", 0.3),
+            temperature=overrides.get("temperature", 0.0), # LHi 28.2.2024: Was 0.3
             max_tokens=response_token_limit,
             n=1,
             stream=should_stream,
