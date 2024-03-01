@@ -4,10 +4,10 @@ import styles from "./Example.module.css";
 
 const DEFAULT_EXAMPLES: string[] = [
     "Miksi joillekin asiakkaille ei ole muodostunut asiakasnumeroa?",
-    "Miksi Classicin toteumakirjaus ei nouse Enterprisen työmaan toteumiin?",
-    "Miksi OmaMetsä-käyttäjän valtuutuspyyntöä ei saa lähetettyä?",
+    "Miksi Classicin toteumakirjaus ei nouse Enterprisen tyÃ¶maan toteumiin?",
+    "Miksi OmaMetsÃ¤-kÃ¤yttÃ¤jÃ¤n valtuutuspyyntÃ¶Ã¤ ei saa lÃ¤hetettyÃ¤?",
     "Kerro Forestan SIMO-laskennasta",
-    "Miten lähetän tarjouspyynnön Kuutioon?"
+    "Miten lÃ¤hetÃ¤n tarjouspyynnÃ¶n Kuutioon?"
 ];
 
 const GPT4V_EXAMPLES: string[] = [
